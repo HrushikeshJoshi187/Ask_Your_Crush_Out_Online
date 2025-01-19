@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="index.css" />
+    <title>I was wondering ...</title>
+    <audio id="music_1" src="assets/music_1.mp3" preload="auto" loop></audio>
+    <audio id="music_2" src="assets/music_2.mp3" preload="auto" loop></audio>
+  </head>
+  <body>
+    <div id="container" class="container">
+      <div id="question_1" class="question_1 question">
+        Crush!
+        <br />
+        Are you coming to the UIC Doggypalooza Event tomorrow?
+        <br />
+        It's near the Student Center East, around 12 pm.
+        <br />
+        I was wondering ...
+      </div>
+      <div id="question_2" class="question_2 question hide">
+        If we could go together?
+      </div>
+
+      <div id="question_3" class="question_3 question hide">
+        Hurray! 🎉
+        <br />
+        See you tommorow!
+      </div>
+
+      <div id="question_4" class="question_4 question hide">
+        Aww! 😔
+        <br />
+        Maybe next time!
+      </div>
+
+      <div id="circlecontainer" class="circlecontainer">
+        <div id="circle_1" class="circle_1"></div>
+        <div id="circle_2" class="circle_2"></div>
+        <div id="circle_3" class="circle_3"></div>
+      </div>
+
+      <img
+        id="waiting"
+        src="assets/waiting.gif"
+        alt="waiting"
+        class="waiting image"
+      />
+      <img
+        id="wondering"
+        src="assets/wondering.gif"
+        alt="wondering"
+        class="wondering image hide"
+      />
+      <img
+        id="winning"
+        src="assets/winning.gif"
+        alt="winning"
+        class="winning image hide"
+      />
+      <img
+        id="losing"
+        src="assets/losing.gif"
+        alt="losing"
+        class="losing image hide"
+      />
+      <img
+        id="victory"
+        src="assets/victory.gif"
+        alt="victory"
+        class="victory image hide"
+      />
+      <img
+        id="defeat"
+        src="assets/defeat.gif"
+        alt="defeat"
+        class="defeat image hide"
+      />
+
+      <div id="yesnobuttoncontainer" class="yesnobuttoncontainer">
+        <button id="if" class="button ifbutton">If ...</button>
+        <button id="yes" class="button yesbutton hide">Yes</button>
+        <div id="nobuttonplaceholder" class="nobuttonplaceholder hide">
+          <button id="no" class="button nobutton">No</button>
+        </div>
+      </div>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>
