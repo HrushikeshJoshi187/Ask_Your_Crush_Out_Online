@@ -1,0 +1,54 @@
+.circlecontainer {
+  position: relative;
+
+  width: 100%;
+  min-height: 150px;
+}
+
+.circle_1 {
+  position: absolute;
+  top: 2.5rem;
+  left: calc(50% + 7.5rem);
+
+  width: 2.5rem;
+  height: 2.5rem;
+
+  border: 0.1875rem solid rgba(211, 211, 211, 1);
+  border-radius: 50%;
+
+  background-color: rgba(248, 250, 252, 1);
+
+  transform: translate(-50%, -50%);
+}
+
+.circle_2 {
+  position: absolute;
+  top: 5.5rem;
+  left: calc(50% + 10.5rem);
+
+  width: 1.5625rem;
+  height: 1.5625rem;
+
+  border: 3px solid rgba(211, 211, 211, 1);
+  border-radius: 50%;
+
+  background-color: rgba(248, 250, 252, 1);
+
+  transform: translate(-50%, -50%);
+}
+
+.circle_3 {
+  position: absolute;
+  top: 8.5rem;
+  left: calc(50% + 7.5rem);
+
+  width: 0.9375rem;
+  height: 0.9375rem;
+
+  border: 3px solid rgba(211, 211, 211, 1);
+  border-radius: 50%;
+
+  background-color: rgba(248, 250, 252, 1);
+
+  transform: translate(-50%, -50%);
+}

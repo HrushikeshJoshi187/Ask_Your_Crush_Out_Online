@@ -1,0 +1,51 @@
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+
+  width: 100%;
+
+  margin-top: 0.5rem;
+}
+
+.button {
+  position: relative;
+
+  min-width: 7.5rem;
+
+  padding: 0.75rem 1rem;
+
+  font-size: 1.25rem;
+
+  outline: none;
+
+  border: none;
+  border-radius: 0.5rem;
+
+  background-color: rgba(248, 250, 252, 1);
+
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+
+  cursor: pointer;
+
+  transition: 0.33s;
+}
+
+.button:hover {
+  background-color: rgba(226, 232, 240, 1);
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.yesbutton {
+  z-index: 1;
+}
+
+.nobutton {
+  transition: all 0.33s ease;
+  z-index: 2;
+}
+
+.nobuttonplaceholder {
+  min-width: 7.5rem;
+}
