@@ -3,6 +3,8 @@ import DOMPurify from "dompurify";
 
 import "./Buttons.css";
 
+const serverURL = "https://ask-your-crush-out-online.onrender.com";
+
 interface ButtonsProps {
   state: "requirement" | "question" | "decision" | "victory" | "defeat";
   changeState: (
@@ -115,7 +117,7 @@ const Buttons = forwardRef<HTMLDivElement, ButtonsProps>(
       }
 
       changeState("victory");
-      fetch("https://ask-for-a-date-mhqj.onrender.com/api/yes", {
+      fetch(`${serverURL}/api/yes`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -131,7 +133,7 @@ const Buttons = forwardRef<HTMLDivElement, ButtonsProps>(
       }
 
       changeState("defeat");
-      fetch("https://ask-for-a-date-mhqj.onrender.com/api/no", {
+      fetch(`${serverURL}/api/no`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
