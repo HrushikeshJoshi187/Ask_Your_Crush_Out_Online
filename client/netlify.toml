@@ -1,14 +1,16 @@
 [[redirects]]
   from = "/customize"
-  to = "/customize"
+  to = "/index.html"
   status = 200
+  force = true
 
 [[redirects]]
   from = "/*"
-  to = "/"
+  to = "/index.html"
   status = 200
+  force = true
 
-  [[redirects]]
+[[redirects]]
   from = "http://*"
   to = "https://:splat"
   status = 301
