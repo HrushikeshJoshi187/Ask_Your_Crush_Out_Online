@@ -19,13 +19,6 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-// app.use((req, res, next) => {
-//   if (req.protocol !== "https") {
-//     return res.redirect(301, `https://${req.headers.host}${req.url}`);
-//   }
-//   next();
-// });
-
 sgMail.setApiKey(SEND_GRID_API_KEY);
 
 const limiter = rateLimit({
@@ -65,6 +58,12 @@ app.post("/api/yes", async (req, res) => {
 });
 
 app.post("/api/no", async (req, res) => {
+  const { email } = req.body;
+
+  if (!isValidEmail(email)) {
+    return res.status(400).send("Invalid email address.");
+  }
+
   const msg = {
     to: email,
     from: "hrushikesh.joshi.187@gmail.com",
