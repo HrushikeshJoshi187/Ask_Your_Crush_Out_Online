@@ -19,12 +19,12 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-app.use((req, res, next) => {
-  if (req.protocol !== "https") {
-    return res.redirect(301, `https://${req.headers.host}${req.url}`);
-  }
-  next();
-});
+// app.use((req, res, next) => {
+//   if (req.protocol !== "https") {
+//     return res.redirect(301, `https://${req.headers.host}${req.url}`);
+//   }
+//   next();
+// });
 
 sgMail.setApiKey(SEND_GRID_API_KEY);
 
