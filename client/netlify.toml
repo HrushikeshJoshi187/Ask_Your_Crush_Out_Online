@@ -1,16 +1,32 @@
+# Redirect all routes that are not static files to index.html
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
   force = true
+  conditions = { "Accept" = "text/html" }
 
+# Redirect HTTP to HTTPS
 [[redirects]]
   from = "http://*"
   to = "https://:splat"
   status = 301
   force = true
 
+# Set correct MIME type for JS files
 [[headers]]
-  for = "/static/*"
+  for = "/static/js/*"
   [headers.values]
     Content-Type = "application/javascript"
+
+# Set correct MIME type for CSS files
+[[headers]]
+  for = "/static/css/*"
+  [headers.values]
+    Content-Type = "text/css"
+
+# Set correct MIME type for media files (adjust if necessary)
+[[headers]]
+  for = "/static/media/*"
+  [headers.values]
+    Content-Type = "image/svg+xml"  # Modify if needed, like image/png, image/jpeg, etc.
