@@ -13,8 +13,11 @@ If you feel if it is too cheesy let me know. I can improve if there is a public 
 This valentine's day ask out your crush
 
 technologies used
-Vite, React, Typescript, dompurify, sendgrid, node, express
+Vite, React, Typescript, dompurify, sendgrid, node, express, express-rate-limiter, helmet
 
 sendgrid allows 200 emails/day
 customize messages, generate template and send it your crush.
 dompurify - santizes all inputs and makes sure websites doesn't get hacked.
+helmet - provides security headers 
+website is in https and forces communication in https to maintain privacy of the users
+rate - limiter - have implemented rate limiters to avoid DOS attacks.

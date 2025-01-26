@@ -16,6 +16,8 @@ const Customize = (): JSX.Element => {
   const [encodedDefeatMessage, setEncodedDefeatMessage] = useState<string>("");
   const [encodedEmail, setEncodedEmail] = useState<string>("");
 
+  const [isEmailValid, setIsEmailValid] = useState<boolean>(true);
+
   const sanitizeInput = (input: string): string => {
     return DOMPurify.sanitize(input, { ALLOWED_TAGS: [], ALLOWED_ATTR: [] });
   };
@@ -30,6 +32,17 @@ const Customize = (): JSX.Element => {
     setEncodedVictoryMessage(btoa(sanitizedVictoryMessage));
     setEncodedDefeatMessage(btoa(sanitizedDefeatMessage));
     setEncodedEmail(btoa(sanitizedEmail));
+
+    if (validateEmail(sanitizedEmail)) {
+      setIsEmailValid(true);
+    } else {
+      setIsEmailValid(false);
+    }
+  };
+
+  const validateEmail = (email: string): boolean => {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
   };
 
   return (
@@ -87,7 +100,7 @@ Maybe next time!`}
         <div>
           <label className="customize_label">Email address:</label>
           <input
-            className={`customize_input`}
+            className={`customize_input ${!isEmailValid ? "invalid" : ""}`}
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}

@@ -2,28 +2,46 @@ import express from "express";
 import bodyParser from "body-parser";
 import sgMail from "@sendgrid/mail";
 import cors from "cors";
+import rateLimit from "express-rate-limit";
+import helmet from "helmet";
 
 const SEND_GRID_API_KEY = process.env.SEND_GRID_API_KEY;
 
 const app = express();
 app.use(bodyParser.json());
 
+app.use(helmet());
+
 const corsOptions = {
-  origin: "https://iwaswondering.netlify.app/",
+  origin: "https://iwaswondering.netlify.app",
   optionsSuccessStatus: 200,
 };
 
 app.use(cors(corsOptions));
 
+app.use((req, res, next) => {
+  if (req.protocol !== "https") {
+    return res.redirect(301, `https://${req.headers.host}${req.url}`);
+  }
+  next();
+});
+
 sgMail.setApiKey(SEND_GRID_API_KEY);
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 50,
+  message: "Too many requests from this IP, please try again later.",
+});
+app.use(limiter);
+
+const isValidEmail = (email) => {
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return regex.test(email);
+};
 
 app.post("/api/yes", async (req, res) => {
   const { email } = req.body;
-
-  const isValidEmail = (email) => {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
-  };
 
   if (!isValidEmail(email)) {
     return res.status(400).send("Invalid email address.");
@@ -33,7 +51,7 @@ app.post("/api/yes", async (req, res) => {
     to: email,
     from: "hrushikesh.joshi.187@gmail.com",
     subject: "Crush Clicked Yes!",
-    text: "Crush clicked 'Yes' on the webpage. bale bale!",
+    text: "Well, well, well! Someone just clicked 'Yes'—Cupid must be on fire today! 🎯❤️ Now go ahead and treat yourself to a little happy dance. Your crush is officially on board. Bale Bale! 🎉✨",
   };
 
   try {
@@ -51,7 +69,7 @@ app.post("/api/no", async (req, res) => {
     to: email,
     from: "hrushikesh.joshi.187@gmail.com",
     subject: "Crush Clicked No!",
-    text: "You got rejected by Crush. Suck it up Loser!",
+    text: "Oof, the crush said 'No'—guess Cupid took the day off! 💔 But hey, chin up! Rejections build character, and now you’ve got a great story for your future TED Talk. Onward to bigger adventures (and better crushes)! 🚀😄",
   };
 
   try {

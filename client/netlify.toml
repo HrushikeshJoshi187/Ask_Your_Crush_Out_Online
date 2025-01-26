@@ -1,0 +1,15 @@
+[[redirects]]
+  from = "/customize"
+  to = "/customize"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/"
+  status = 200
+
+  [[redirects]]
+  from = "http://*"
+  to = "https://:splat"
+  status = 301
+  force = true
