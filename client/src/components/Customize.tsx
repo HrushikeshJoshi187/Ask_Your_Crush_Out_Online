@@ -3,7 +3,7 @@ import DOMPurify from "dompurify";
 
 import "./Customize.css";
 
-const website_url = "http://localhost:5173";
+const website_url = "https://iwaswondering.netlify.app";
 
 const Customize = (): JSX.Element => {
   const [question, setQuestion] = useState<string>("");

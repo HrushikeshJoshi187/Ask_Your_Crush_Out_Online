@@ -9,7 +9,7 @@ const app = express();
 app.use(bodyParser.json());
 
 const corsOptions = {
-  origin: "https://hrushikesh-joshi-important-project.netlify.app",
+  origin: "https://iwaswondering.netlify.app/",
   optionsSuccessStatus: 200,
 };
 
