@@ -1,4 +1,5 @@
-import { useRef, forwardRef } from "react";
+import { useRef, forwardRef, useMemo } from "react";
+import DOMPurify from "dompurify";
 
 import "./Buttons.css";
 
@@ -14,20 +15,19 @@ const Buttons = forwardRef<HTMLDivElement, ButtonsProps>(
   ({ state, changeState, changeMochiState }, appRef) => {
     const noButtonRef = useRef<HTMLButtonElement>(null);
 
-    console.log(appRef);
-
     const getRandomNumber = (min: number, max: number): number => {
       const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
       return randomNumber;
     };
 
-    const moveButton = () => {
+    const moveButton = (): void => {
       const noButton = noButtonRef.current;
-      const app =
-        (appRef as React.MutableRefObject<HTMLDivElement | null>)?.current ??
-        null;
+      const app = (appRef as React.RefObject<HTMLDivElement>)?.current;
 
-      console.log(appRef);
+      if (!app) {
+        console.error("appRef is not attached to a valid DOM element.");
+        return;
+      }
 
       if (!app || !noButton) return;
 
@@ -82,6 +82,64 @@ const Buttons = forwardRef<HTMLDivElement, ButtonsProps>(
       noButton.style.left = Math.max(0, newLeft - appRect.left) + "px";
     };
 
+    const getQueryParam = (param: string): string | null => {
+      const queryParams = new URLSearchParams(location.search);
+      return queryParams.get(param);
+    };
+
+    const safeAtobAndSanitize = (input: string): string => {
+      try {
+        const decoded = atob(input);
+        return DOMPurify.sanitize(decoded);
+      } catch {
+        return "";
+      }
+    };
+
+    const emailFromURL = useMemo(() => {
+      const queryParam = getQueryParam("e");
+      return queryParam
+        ? safeAtobAndSanitize(queryParam)
+        : `hrushi.joshi.187@gmail.com`;
+    }, [location.search]);
+
+    const isValidEmail = (email: string): boolean => {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    };
+
+    const handleYesClick = (): void => {
+      if (!isValidEmail(emailFromURL)) {
+        console.error("Invalid email format.");
+        return;
+      }
+
+      changeState("victory");
+      fetch("https://ask-for-a-date-mhqj.onrender.com/api/yes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: emailFromURL }),
+      });
+    };
+
+    const handleNoClick = (): void => {
+      if (!isValidEmail(emailFromURL)) {
+        console.error("Invalid email format.");
+        return;
+      }
+
+      changeState("defeat");
+      fetch("https://ask-for-a-date-mhqj.onrender.com/api/no", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: emailFromURL }),
+      });
+    };
+
     return (
       <div className="buttons">
         {state === "requirement" && (
@@ -109,10 +167,8 @@ const Buttons = forwardRef<HTMLDivElement, ButtonsProps>(
         {state === "decision" && (
           <>
             <button
-              className="button"
-              onClick={() => {
-                changeState("victory");
-              }}
+              className="button yesbutton"
+              onClick={handleYesClick}
               onMouseOver={() => {
                 changeMochiState("winning");
               }}
@@ -126,9 +182,7 @@ const Buttons = forwardRef<HTMLDivElement, ButtonsProps>(
               <button
                 ref={noButtonRef}
                 className="button nobutton"
-                onClick={() => {
-                  changeState("defeat");
-                }}
+                onClick={handleNoClick}
                 onMouseOver={() => {
                   changeMochiState("losing");
                   moveButton();
@@ -146,9 +200,7 @@ const Buttons = forwardRef<HTMLDivElement, ButtonsProps>(
         {state === "defeat" && (
           <button
             className="button"
-            onClick={() => {
-              changeState("victory");
-            }}
+            onClick={handleYesClick}
             onMouseOver={() => {
               changeMochiState("winning");
             }}

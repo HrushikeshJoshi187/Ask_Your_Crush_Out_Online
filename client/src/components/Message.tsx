@@ -1,4 +1,6 @@
+import { useMemo } from "react";
 import { useLocation } from "react-router-dom";
+import DOMPurify from "dompurify";
 
 import "./Message.css";
 
@@ -6,7 +8,7 @@ interface MessageProps {
   state: "requirement" | "question" | "decision" | "victory" | "defeat";
 }
 
-const Message = ({ state }: MessageProps) => {
+const Message = ({ state }: MessageProps): JSX.Element => {
   const location = useLocation();
 
   const getQueryParam = (param: string): string | null => {
@@ -14,84 +16,67 @@ const Message = ({ state }: MessageProps) => {
     return queryParams.get(param);
   };
 
+  const safeAtobAndSanitize = (input: string): string => {
+    try {
+      const decoded = atob(input);
+      return DOMPurify.sanitize(decoded);
+    } catch {
+      return "";
+    }
+  };
+
+  const formatMessage = (message: string): JSX.Element[] =>
+    message.split("\n").map((part, index) => (
+      <span key={index}>
+        {part}
+        <br />
+      </span>
+    ));
+
   const requirementMessage = `For the best experience
-    please use a mouse...
+    please use a mouse ...
     don't worry,
     I won't chase it!`;
 
-  const questionFromURL =
-    getQueryParam("q") ??
-    `Crush!
+  const questionFromURL = useMemo(() => {
+    const queryParam = getQueryParam("q");
+    return queryParam
+      ? safeAtobAndSanitize(queryParam)
+      : `Crush!
     Are you coming to the Event tomorrow?
     It's near location, around Time
     I was wondering ...`;
+  }, [location.search]);
 
   const decisionMessage = `If we could go together?`;
 
-  const victoryMessageFromURL =
-    getQueryParam("v") ??
-    `Hurray! 🎉
-    See you tommorow!`;
+  const victoryMessageFromURL = useMemo(() => {
+    const queryParam = getQueryParam("v");
+    return queryParam
+      ? safeAtobAndSanitize(queryParam)
+      : `Hurray! 🎉
+  See you tomorrow!`;
+  }, [location.search]);
 
-  const defeatMessageFromURL =
-    getQueryParam("d") ??
-    `Aww! 😔
-    Maybe next time!`;
-
-  const formattedRequirementMessage = requirementMessage
-    .split("\n")
-    .map((part, index) => (
-      <span key={index}>
-        {part}
-        <br />
-      </span>
-    ));
-
-  const formattedQuestion = questionFromURL.split("\n").map((part, index) => (
-    <span key={index}>
-      {part}
-      <br />
-    </span>
-  ));
-
-  const formattedDecisionMessage = decisionMessage
-    .split("\n")
-    .map((part, index) => (
-      <span key={index}>
-        {part}
-        <br />
-      </span>
-    ));
-
-  const formattedVictoryMessage = victoryMessageFromURL
-    .split("\n")
-    .map((part, index) => (
-      <span key={index}>
-        {part}
-        <br />
-      </span>
-    ));
-
-  const formattedDefeatMessage = defeatMessageFromURL
-    .split("\n")
-    .map((part, index) => (
-      <span key={index}>
-        {part}
-        <br />
-      </span>
-    ));
+  const defeatMessageFromURL = useMemo(() => {
+    const queryParam = getQueryParam("d");
+    return queryParam
+      ? safeAtobAndSanitize(queryParam)
+      : `Aww! 😔
+  Maybe next time!`;
+  }, [location.search]);
 
   return (
     <div className="message">
-      {state === "requirement" && <>{formattedRequirementMessage}</>}
+      {state === "requirement" && <>{formatMessage(requirementMessage)}</>}
 
-      {state === "question" && <>{formattedQuestion}</>}
+      {state === "question" && <>{formatMessage(questionFromURL)}</>}
 
-      {state === "decision" && <>{formattedDecisionMessage}</>}
+      {state === "decision" && <>{formatMessage(decisionMessage)}</>}
 
-      {state === "victory" && <>{formattedVictoryMessage}</>}
+      {state === "victory" && <>{formatMessage(victoryMessageFromURL)}</>}
 
-      {state === "defeat" && <>{formattedDefeatMessage}</>}
+      {state === "defeat" && <>{formatMessage(defeatMessageFromURL)}</>}
     </div>
   );
 };

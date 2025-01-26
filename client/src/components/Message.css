@@ -10,6 +10,11 @@
 
   line-height: 2rem;
 
+  word-wrap: break-word;
+  white-space: normal;
+  display: block;
+  max-width: 100%;
+
   background-color: rgba(248, 250, 252, 1);
 
   -webkit-user-select: none;

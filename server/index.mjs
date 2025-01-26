@@ -18,8 +18,19 @@ app.use(cors(corsOptions));
 sgMail.setApiKey(SEND_GRID_API_KEY);
 
 app.post("/api/yes", async (req, res) => {
+  const { email } = req.body;
+
+  const isValidEmail = (email) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  };
+
+  if (!isValidEmail(email)) {
+    return res.status(400).send("Invalid email address.");
+  }
+
   const msg = {
-    to: "hrushikesh.joshi.187@gmail.com",
+    to: email,
     from: "hrushikesh.joshi.187@gmail.com",
     subject: "Crush Clicked Yes!",
     text: "Crush clicked 'Yes' on the webpage. bale bale!",
@@ -37,7 +48,7 @@ app.post("/api/yes", async (req, res) => {
 
 app.post("/api/no", async (req, res) => {
   const msg = {
-    to: "hrushikesh.joshi.187@gmail.com",
+    to: email,
     from: "hrushikesh.joshi.187@gmail.com",
     subject: "Crush Clicked No!",
     text: "You got rejected by Crush. Suck it up Loser!",

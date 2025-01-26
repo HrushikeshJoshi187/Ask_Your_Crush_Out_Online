@@ -1,52 +1,98 @@
 import { useState } from "react";
+import DOMPurify from "dompurify";
 
 import "./Customize.css";
 
 const website_url = "http://localhost:5173";
 
-const Customize = () => {
-  const [question, setQuestion] = useState("");
-  const [victoryMessage, setVictoryMessage] = useState("");
-  const [defeatMessage, setDefeatMessage] = useState("");
-  const [encodedQuestion, setEncodedQuestion] = useState("");
-  const [encodedVictory, setEncodedVictory] = useState("");
-  const [encodedDefeat, setEncodedDefeat] = useState("");
+const Customize = (): JSX.Element => {
+  const [question, setQuestion] = useState<string>("");
+  const [victoryMessage, setVictoryMessage] = useState<string>("");
+  const [defeatMessage, setDefeatMessage] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [encodedQuestion, setEncodedQuestion] = useState<string>("");
+  const [encodedVictoryMessage, setEncodedVictoryMessage] =
+    useState<string>("");
+  const [encodedDefeatMessage, setEncodedDefeatMessage] = useState<string>("");
+  const [encodedEmail, setEncodedEmail] = useState<string>("");
+
+  const sanitizeInput = (input: string): string => {
+    return DOMPurify.sanitize(input, { ALLOWED_TAGS: [], ALLOWED_ATTR: [] });
+  };
 
   const handleGenerate = () => {
-    setEncodedQuestion(btoa(question));
-    setEncodedVictory(btoa(victoryMessage));
-    setEncodedDefeat(btoa(defeatMessage));
+    const sanitizedQuestion = sanitizeInput(question);
+    const sanitizedVictoryMessage = sanitizeInput(victoryMessage);
+    const sanitizedDefeatMessage = sanitizeInput(defeatMessage);
+    const sanitizedEmail = sanitizeInput(email);
+
+    setEncodedQuestion(btoa(sanitizedQuestion));
+    setEncodedVictoryMessage(btoa(sanitizedVictoryMessage));
+    setEncodedDefeatMessage(btoa(sanitizedDefeatMessage));
+    setEncodedEmail(btoa(sanitizedEmail));
   };
 
   return (
     <div className="customize">
-      <h2>Customize Your Messages</h2>
-      <form>
+      <form className="customize_form">
+        <h2 className="customize_title">Customize Your Messages</h2>
+        <span className="customize_span">
+          Please keep the messages brief for a better experience.
+          <br />
+          Make sure to test the URL before sharing it.
+          <br />
+          Make sure you put in right email address to receive the responses.
+        </span>
         <div>
-          <label>Question Message:</label>
+          <label className="customize_label">Question:</label>
           <textarea
-            className="input_textarea"
+            className="customize_textarea"
+            rows={4}
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
-            placeholder="Enter your question message"
+            required
+            maxLength={200}
+            placeholder={`Crush!
+Are you coming to the Event tomorrow?
+It's near location, around Time
+I was wondering ...`}
           />
         </div>
         <div>
-          <label>Victory Message:</label>
+          <label className="customize_label">Victory Message:</label>
           <textarea
-            className="input_textarea"
+            className="customize_textarea"
+            rows={4}
             value={victoryMessage}
             onChange={(e) => setVictoryMessage(e.target.value)}
-            placeholder="Enter your victory message"
+            required
+            maxLength={200}
+            placeholder={`Hurray! 🎉
+See you tommorow!`}
           />
         </div>
         <div>
-          <label>Defeat Message:</label>
+          <label className="customize_label">Defeat Message:</label>
           <textarea
-            className="input_textarea"
+            className={`customize_textarea`}
+            rows={4}
             value={defeatMessage}
             onChange={(e) => setDefeatMessage(e.target.value)}
-            placeholder="Enter your defeat message"
+            required
+            maxLength={200}
+            placeholder={`Aww! 😔
+Maybe next time!`}
+          />
+        </div>
+        <div>
+          <label className="customize_label">Email address:</label>
+          <input
+            className={`customize_input`}
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            placeholder={`JohnDoe@gmail.com`}
           />
         </div>
         <button
@@ -54,16 +100,33 @@ const Customize = () => {
           type="button"
           onClick={handleGenerate}
         >
-          Generate Base64
+          Generate URL
         </button>
+        {encodedQuestion && encodedDefeatMessage && encodedVictoryMessage ? (
+          <div className="customize_url">
+            <a
+              href={`${website_url}?q=${encodedQuestion}&v=${encodedVictoryMessage}&d=${encodedDefeatMessage}&e=${encodedEmail}`}
+              className="customize_url_link"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {website_url}/?q={encodedQuestion}&v={encodedVictoryMessage}&d=
+              {encodedDefeatMessage}
+            </a>
+          </div>
+        ) : (
+          <div className="customize_url">
+            <a
+              href={`${website_url}`}
+              className="customize_url_link"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {website_url}
+            </a>
+          </div>
+        )}
       </form>
-
-      {encodedQuestion && (
-        <div>
-          Generated URL: {website_url}/?q={encodedQuestion}v={encodedVictory}d=
-          {encodedDefeat}
-        </div>
-      )}
     </div>
   );
 };

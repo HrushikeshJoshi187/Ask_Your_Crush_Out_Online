@@ -5,12 +5,13 @@ import Message from "./components/Message.tsx";
 import Circles from "./components/Circles.tsx";
 import Mochi from "./components/Mochi.tsx";
 import Buttons from "./components/Buttons.tsx";
-import Customize from "./components/Customize";
+import Customize from "./components/Customize.tsx";
+import MusicPlayer from "./components/MusicPlayer.tsx";
 
 import "./App.css";
 
 const App = (): JSX.Element => {
-  const appRef = useRef<HTMLDivElement>(null);
+  const appRef = useRef<HTMLDivElement | null>(null);
 
   const [state, SetState] = useState<
     "requirement" | "question" | "decision" | "victory" | "defeat"
@@ -28,9 +29,6 @@ const App = (): JSX.Element => {
   const changeMochiState = (newMochiState: "normal" | "winning" | "losing") => {
     setMochiState(newMochiState);
   };
-
-  const music1 = document.getElementById("music_1");
-  const music2 = document.getElementById("music_2");
 
   useEffect(() => {
     changeMochiState("normal");
@@ -53,6 +51,7 @@ const App = (): JSX.Element => {
                   changeMochiState={changeMochiState}
                   ref={appRef}
                 />
+                <MusicPlayer state={state} />
               </>
             }
           />

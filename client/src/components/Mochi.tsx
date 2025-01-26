@@ -18,36 +18,36 @@ const Mochi = ({ state, mochiState }: MochiProps): JSX.Element => {
     e.preventDefault();
   };
 
+  const images = {
+    requirement: waiting,
+    question: waiting,
+    decision: {
+      normal: wondering,
+      winning: winning,
+      losing: losing,
+    },
+    victory: victory,
+    defeat: {
+      normal: defeat,
+      winning: winning,
+    },
+  };
+
+  const get_image = (): string | undefined => {
+    if (state === "decision" || state === "defeat") {
+      return (images[state] as Record<string, string>)[mochiState];
+    }
+    return images[state];
+  };
+
   return (
-    <>
-      {(state === "requirement" || state === "question") && (
-        <img src={waiting} alt="Mochi Waiting" className="image" />
-      )}
-
-      {state === "decision" && mochiState === "normal" && (
-        <img src={wondering} alt="Mochi Wondering" className="image" />
-      )}
-
-      {state === "decision" && mochiState === "winning" && (
-        <img src={winning} alt="Mochi Winning" className="image" />
-      )}
-
-      {state === "decision" && mochiState === "losing" && (
-        <img src={losing} alt="Mochi Losing" className="image" />
-      )}
-
-      {state === "victory" && (
-        <img src={victory} alt="Mochi Victory" className="image" />
-      )}
-
-      {state === "defeat" && mochiState === "normal" && (
-        <img src={defeat} alt="Mochi Defeat" className="image" />
-      )}
-
-      {state === "defeat" && mochiState === "winning" && (
-        <img src={winning} alt="Mochi Winning" className="image" />
-      )}
-    </>
+    <img
+      src={get_image()}
+      alt={`Mochi ${state}`}
+      className="image"
+      onClick={preventInteraction}
+      onDragStart={preventInteraction}
+    />
   );
 };
 

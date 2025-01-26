@@ -30,10 +30,6 @@
 }
 
 @media (min-width: 1024px) {
-  .about_section {
-    padding-top: 8rem;
-  }
-
   .app {
     max-width: 1024px;
     padding-left: 2rem;
