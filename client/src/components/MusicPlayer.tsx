@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import game_music_1 from "../assets/music/game_music_1.mp3";
 import sad_music_1 from "../assets/music/sad_music_1.mp3";
@@ -8,6 +8,8 @@ interface MusicPlayerProps {
 }
 
 const MusicPlayer = ({ state }: MusicPlayerProps): JSX.Element => {
+  const [canPlayMusic, setCanPlayMusic] = useState<boolean>(false);
+
   const music1Ref = useRef<HTMLAudioElement | null>(null);
   const music2Ref = useRef<HTMLAudioElement | null>(null);
 
@@ -18,14 +20,14 @@ const MusicPlayer = ({ state }: MusicPlayerProps): JSX.Element => {
       music1.play().catch((error) => {
         console.error("Error playing music on interaction:", error);
       });
+      setCanPlayMusic(true);
       document.removeEventListener("click", playMusicOnInteraction);
     };
 
     const playMusic = () => {
-      music1.play().catch((error) => {
-        console.error("Error playing music:", error);
+      if (!canPlayMusic) {
         document.addEventListener("click", playMusicOnInteraction);
-      });
+      }
     };
 
     playMusic();
@@ -33,22 +35,29 @@ const MusicPlayer = ({ state }: MusicPlayerProps): JSX.Element => {
     return () => {
       document.removeEventListener("click", playMusicOnInteraction);
     };
-  }, []);
+  }, [canPlayMusic]);
 
   useEffect(() => {
     if (state === "defeat") {
-      music1Ref.current!.pause();
-      music2Ref.current!.play().catch((error) => {
-        console.error("Error playing music:", error);
-      });
-    } else {
-      music2Ref.current!.pause();
-      music1Ref.current!.paused &&
-        music1Ref.current!.play().catch((error) => {
+      if (music1Ref.current && canPlayMusic) {
+        music1Ref.current.pause();
+      }
+      if (music2Ref.current && canPlayMusic) {
+        music2Ref.current.play().catch((error) => {
           console.error("Error playing music:", error);
         });
+      }
+    } else {
+      if (music2Ref.current && canPlayMusic) {
+        music2Ref.current.pause();
+      }
+      if (music1Ref.current && music1Ref.current.paused && canPlayMusic) {
+        music1Ref.current.play().catch((error) => {
+          console.error("Error playing music:", error);
+        });
+      }
     }
-  }, [state]);
+  }, [state, canPlayMusic]);
 
   return (
     <div className="music_player">
