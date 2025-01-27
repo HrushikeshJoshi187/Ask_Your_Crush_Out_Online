@@ -2,7 +2,7 @@
   "name": "server",
   "version": "1.0.0",
   "description": "Ask Your Crush out Online backend",
-  "main": "index.mjs",
+  "main": "index.ts",
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
