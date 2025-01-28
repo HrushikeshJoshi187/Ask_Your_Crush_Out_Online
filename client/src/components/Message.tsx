@@ -41,7 +41,9 @@ const Message = ({ state }: MessageProps): JSX.Element => {
   const questionFromURL = useMemo(() => {
     const queryParam = getQueryParam("q");
     return queryParam
-      ? safeAtobAndSanitize(queryParam)
+      ? safeAtobAndSanitize(queryParam) +
+          `
+      I was wondering ...`
       : `Crush!
     Are you coming to the Event tomorrow?
     It's near location, around Time

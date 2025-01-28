@@ -21,6 +21,7 @@ const GMAIL_ACCOUNTS = [
 
 const MAX_EMAILS_PER_DAY = 500;
 const MAX_EMAILS_PER_MINUTE = 20;
+const ALERT_THRESHOLD = 0.75;
 
 let emailCounters = GMAIL_ACCOUNTS.map(() => 0);
 let emailQueue: { email: string; subject: string; text: string }[] = [];
@@ -34,8 +35,8 @@ app.use(bodyParser.json());
 app.use(helmet());
 
 const corsOptions = {
-  // origin: "https://iwaswondering.netlify.app",
-  origin: "http://localhost:5173",
+  origin: "https://iwaswondering.netlify.app",
+  //origin: "http://localhost:5173",
   optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
@@ -61,6 +62,30 @@ const transporterPool = GMAIL_ACCOUNTS.map((account) =>
     },
   })
 );
+
+const sendAlertEmail = async (message: string): Promise<void> => {
+  const alertTransporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.ASKYOURCRUSHOUTONLINE0_GMAIL,
+      pass: process.env.ASKYOURCRUSHOUTONLINE0_GMAIL_APP_PASSWORD,
+    },
+  });
+
+  const mailOptions = {
+    from: process.env.ASKYOURCRUSHOUTONLINE0_GMAIL,
+    to: process.env.ALERT_EMAIL,
+    subject: "Email Usage Alert",
+    text: message,
+  };
+
+  try {
+    await alertTransporter.sendMail(mailOptions);
+    console.log("Alert email sent successfully.");
+  } catch (error) {
+    console.error("Failed to send alert email:", error);
+  }
+};
 
 const sendEmail = async (
   email: string,
@@ -91,6 +116,16 @@ const sendEmail = async (
       `Email sent using account ${availableAccountIndex}: %s`,
       info.messageId
     );
+    const currentUsage = emailCounters[availableAccountIndex];
+    if (currentUsage / MAX_EMAILS_PER_DAY >= ALERT_THRESHOLD) {
+      sendAlertEmail(
+        `Account ${GMAIL_ACCOUNTS[availableAccountIndex].user} has reached ${Math.round(
+          (currentUsage / MAX_EMAILS_PER_DAY) * 100
+        )}% of its daily email capacity.`
+      ).catch((error) =>
+        console.error("Error sending usage alert email:", error)
+      );
+    }
   } catch (error) {
     console.error(
       `Error sending email with account ${availableAccountIndex}:`,

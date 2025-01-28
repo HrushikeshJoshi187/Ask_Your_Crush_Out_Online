@@ -60,15 +60,14 @@ const Customize = (): JSX.Element => {
           <label className="customize_label">Question:</label>
           <textarea
             className="customize_textarea"
-            rows={4}
+            rows={3}
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
             required
-            maxLength={200}
-            placeholder={`Crush!
-Are you coming to the Event tomorrow?
-It's near location, around Time
-I was wondering ...`}
+            maxLength={150}
+            placeholder={`e.g., Crush! 
+Are you coming to the event tomorrow? 
+It's near the location, around time.`}
           />
         </div>
         <div>
@@ -80,7 +79,7 @@ I was wondering ...`}
             onChange={(e) => setVictoryMessage(e.target.value)}
             required
             maxLength={200}
-            placeholder={`Hurray! 🎉
+            placeholder={`e.g., Hurray! 🎉
 See you tommorow!`}
           />
         </div>
@@ -93,7 +92,7 @@ See you tommorow!`}
             onChange={(e) => setDefeatMessage(e.target.value)}
             required
             maxLength={200}
-            placeholder={`Aww! 😔
+            placeholder={`e.g., Aww! 😔
 Maybe next time!`}
           />
         </div>
@@ -105,7 +104,7 @@ Maybe next time!`}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            placeholder={`JohnDoe@gmail.com`}
+            placeholder={`e.g., JohnDoe@gmail.com`}
           />
         </div>
         <button
