@@ -3,8 +3,8 @@ import DOMPurify from "dompurify";
 
 import "./Buttons.css";
 
-const serverURL = "https://ask-your-crush-out-online.onrender.com";
-// const serverURL = "http://localhost:3000";
+// const serverURL = "https://ask-your-crush-out-online.onrender.com";
+const serverURL = "http://localhost:3000";
 
 interface ButtonsProps {
   state: "requirement" | "question" | "decision" | "victory" | "defeat";
@@ -103,7 +103,7 @@ const Buttons = forwardRef<HTMLDivElement, ButtonsProps>(
       const queryParam = getQueryParam("e");
       return queryParam
         ? safeAtobAndSanitize(queryParam)
-        : `hrushi.joshi.187@gmail.com`;
+        : `askyourcrushoutonline0@gmail.com`;
     }, [location.search]);
 
     const isValidEmail = (email: string): boolean => {

@@ -119,3 +119,10 @@ Special thanks to SendGrid for their API and allowing 100 free emails/day—with
 If you found this project fun or helpful, feel free to ⭐️ the repository or drop a comment. I’d love to hear your thoughts!
 
 Built with ❤️ by Hrushi Joshi
+
+// 4 lines of message
+// button looks text
+// placeholder is misunderstood as message
+// Emoji and unicode passing in message and also in URL (check dom-purify)
+// linkedin Post, video, github post , X post
+//
