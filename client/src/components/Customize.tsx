@@ -143,7 +143,9 @@ const Customize = (): JSX.Element => {
     }
   };
 
-  const handleCopyToClipboard = () => {
+  const handleCopyToClipboard = (event: React.MouseEvent) => {
+    event.preventDefault();
+
     if (
       !encodedQuestion ||
       !encodedDefeatMessage ||

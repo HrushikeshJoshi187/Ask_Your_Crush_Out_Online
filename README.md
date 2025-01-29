@@ -224,8 +224,11 @@ Your server will running on http://localhost:3000 (default server local host)
 A huge shoutout to Web Desgin Mastery for their amazing tutorial.
 
 If you love this project, feel free to:
+
 ✅ **Star** ⭐ this repo
+
 ✅ **Fork** 🍴 and contribute
+
 ✅ **Share** 📢 with friends & help them take their shot!
 
 If you feel if it is too cheesy let me know! We can do something about it😂
