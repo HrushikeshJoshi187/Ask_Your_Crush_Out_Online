@@ -140,18 +140,27 @@
 }
 
 .customize_url {
-  margin-top: 1rem;
+  max-width: 100%;
 
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 0.5rem;
+
+  margin-top: 1rem;
 }
 
 .customize_url_link {
+  flex: 1;
+
+  min-width: 0;
+
   word-wrap: break-word;
   white-space: normal;
-  display: block;
-  max-width: 100%;
+  overflow-wrap: anywhere;
+
+  width: 100%;
+
+  margin-right: 5rem;
 
   pointer-events: none;
 }
