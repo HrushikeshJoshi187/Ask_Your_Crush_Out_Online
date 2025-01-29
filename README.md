@@ -6,13 +6,31 @@ Spread the love and be a modern-day Cupid! Share this website with everyone and 
 
 ---
 
+## 📖 About the Project
+
+This project began as an experimental idea, but it quickly grew into a fully realized app aimed at making confessing feelings easier and more fun for everyone! 🎉 I initially followed tutorial by [Web Design Mastery](https://www.youtube.com/@webdesignmastery23) to create the basic structure of the website. However, as I worked through it, I realized that the process was too technical for someone without a computer science background to fully understand. The steps involved—such as downloading the code, making modifications without causing errors, setting up accounts on platforms like Netlify, and deploying the site—were complicated and could easily overwhelm non-technical users.
+
+This insight led me to focus on simplifying the process and making the website accessible to a broader audience. I spent time refining the workflow, creating an easy-to-use interface, and ensuring that even users with no technical experience could use the website without needing to worry about the underlying code or deployment steps.
+
+One of the most significant upgrades to this website was the addition of email notifications. Previously, users would have to manually check for a response from their crush, but now, when your crush responds with a "Yes" or "No," you'll receive an instant email notification, making the whole experience much more interactive and user-friendly. 🥳
+
+Tutorial link: [Web Design Mastery's Tutorial](https://www.youtube.com/watch?v=hKx50WdhTlM&t=24s&pp=ygUPYXNrIG91dCB3ZWJzaXRl)
+
+---
+
 ## 🌐 Try it out!
 
-**Check out the live version of the website here:**  
-🔗 [https://iwaswondering.netlify.app](https://johndoeportfoliowebsite.netlify.app)
+**Check out the live version of the website here:**
+
+🔗 [https://iwaswondering.netlify.app](https://iwaswondering.netlify.app)
 
 **Create a custom message:**
+
 🔗 [https://iwaswondering.netlify.app/customize](https://iwaswondering.netlify.app/customize)
+
+**Github Repository Link:**
+
+🔗 [https://github.com/HrushikeshJoshi187/Ask_Your_Crush_Out_Online](https://github.com/HrushikeshJoshi187/Ask_Your_Crush_Out_Online)
 
 🛠️ **Test the site before sending your message!**
 
@@ -46,9 +64,9 @@ Here’s a quick walkthrough of the website in action:
 
 ![Decision Section](./project_implementation/photos/decision_section.png)
 
-### Fun
+### Most Fun Part
 
-![Fun](./project_implementation/photos/fun.png)
+![Most Fun Part](./project_implementation/photos/most_fun_part.png)
 
 ### Winning
 
@@ -65,6 +83,14 @@ Here’s a quick walkthrough of the website in action:
 ### Customize Section
 
 ![Customize Section](./project_implementation/photos/customize_section.png)
+
+### Crush Clicked Yes
+
+![Crush Clicked Yes](./project_implementation/photos/crush_clicked_yes.png)
+
+### Crush Clicked No
+
+![Crush Clicked No](./project_implementation/photos/crush_clicked_no.png)
 
 ---
 
@@ -111,40 +137,66 @@ We take security **very seriously**! 🔒
 1. Clone this repository:
 
    ```bash
-   git clone https://github.com/HrushikeshJoshi187/John_Doe_Portfolio_Website.git
+   git clone https://github.com/HrushikeshJoshi187/Ask_Your_Crush_Out_Online.git
    ```
 
 2. Navigate to the project folder:
 
    ```bash
-   cd John_Doe_Portfolio_Website
+   cd Ask_Your_Crush_Out_Online
    ```
 
-3. Install dependencies:
+3. Navigate to the project folder:
+
+   ```bash
+   cd client
+   ```
+
+4. Install dependencies:
 
    ```bash
    npm install
    ```
 
-4. Start the development server:
+5. Start the development server:
 
    ```bash
    npm run dev
    ```
 
+6. Open new terminal & Navigate to the project folder:
+
+   ```bash
+   cd Ask_Your_Crush_Out_Online
+   ```
+
+7. Navigate to the project folder:
+
+   ```bash
+   cd server
+   ```
+
+8. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+9. Add required Environment Variables.
+
+10. Change the server link i.e. const serverURL = "https://ask-your-crush-out-online.onrender.com" in "buttons.tsx" (client) to const serverURL = "http://localhost:3000";
+
+11. Change the frontend link i.e. origin: "https://iwaswondering.netlify.app" in "index.ts" (server) to origin: "http://localhost:5173"
+
+12. Start the development server:
+
+    ```bash
+    npm run dev
+    ```
+
 Open your browser and navigate to http://localhost:5173 (default Vite localhost)
 
----
-
-## 📖 About the Project
-
-This project started as an experiment but evolved into a full-fledged app to make confessing feelings easier and **more fun**! 🎉
-
-I followed **Web Design Mastery’s tutorial** ([YouTube Video](https://www.youtube.com/watch?v=hKx50WdhTlM&t=24s)), but I realized it was too technical for non-CS users. So, I spent time **simplifying the process** and making it **accessible** for everyone! 🚀
-
-I followed Web Design Mastery's tutorial https://www.youtube.com/watch?v=hKx50WdhTlM&t=24s for the basic website. but I felt that It was almost impossible for a person from non CS background to download the code, edit it without messing it up, create account on and deloy it on netlify or any other platform. So I spent my making it accessible to all non-CS background peers. One major upgrade to this website is get email notfication after your crush yes/no on the website.
-
-One major **upgrade**? **Email notifications** when your crush responds! 🥳
+Your server will running on http://localhost:3000 (default server local host)
 
 ---
 
@@ -167,6 +219,9 @@ One major **upgrade**? **Email notifications** when your crush responds! 🥳
 ---
 
 ## 🌟 Contribute & Support
+
+🎉 Acknowledgments
+A huge shoutout to Web Desgin Mastery for their amazing tutorial.
 
 If you love this project, feel free to:
 ✅ **Star** ⭐ this repo

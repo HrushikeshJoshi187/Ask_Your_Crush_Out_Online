@@ -49,3 +49,9 @@
 .nobuttonplaceholder {
   min-width: 7.5rem;
 }
+
+@media (max-width: 480px) {
+  .button {
+    font-size: 1rem;
+  }
+}

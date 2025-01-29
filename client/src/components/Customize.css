@@ -201,3 +201,9 @@
     height: 10rem;
   }
 }
+
+@media (max-width: 480px) {
+  .customize_form {
+    padding: 1.5rem;
+  }
+}

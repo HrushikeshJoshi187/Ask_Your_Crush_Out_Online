@@ -144,15 +144,34 @@ const Customize = (): JSX.Element => {
   };
 
   const handleCopyToClipboard = () => {
-    const url = `${website_url}?q=${encodedQuestion}&v=${encodedVictoryMessage}&d=${encodedDefeatMessage}&e=${encodedEmail}`;
-    navigator.clipboard.writeText(url).then(
-      () => {
-        alert("URL copied to clipboard!");
-      },
-      (err) => {
-        alert("Failed to copy URL: " + err);
-      }
-    );
+    if (
+      !encodedQuestion ||
+      !encodedDefeatMessage ||
+      !encodedVictoryMessage ||
+      !encodedEmail
+    ) {
+      console.log("URL not generated yet.");
+
+      const url = `${website_url}`;
+      navigator.clipboard.writeText(url).then(
+        () => {
+          alert("URL copied to clipboard!");
+        },
+        (err) => {
+          alert("Failed to copy URL: " + err);
+        }
+      );
+    } else {
+      const url = `${website_url}?q=${encodedQuestion}&v=${encodedVictoryMessage}&d=${encodedDefeatMessage}&e=${encodedEmail}`;
+      navigator.clipboard.writeText(url).then(
+        () => {
+          alert("URL copied to clipboard!");
+        },
+        (err) => {
+          alert("Failed to copy URL: " + err);
+        }
+      );
+    }
   };
 
   return (
