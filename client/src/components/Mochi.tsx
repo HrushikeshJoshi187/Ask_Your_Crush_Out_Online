@@ -14,7 +14,6 @@ interface MochiProps {
 
 const Mochi = ({ state, mochiState }: MochiProps): JSX.Element => {
   const preventInteraction = (e: React.MouseEvent | React.DragEvent) => {
-    console.log("called");
     e.preventDefault();
   };
 

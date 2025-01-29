@@ -11,6 +11,16 @@ interface MessageProps {
 const Message = ({ state }: MessageProps): JSX.Element => {
   const location = useLocation();
 
+  const fromBase64 = (str: string): string => {
+    try {
+      return new TextDecoder().decode(
+        Uint8Array.from(atob(str), (c) => c.charCodeAt(0))
+      );
+    } catch {
+      return "";
+    }
+  };
+
   const getQueryParam = (param: string): string | null => {
     const queryParams = new URLSearchParams(location.search);
     return queryParams.get(param);
@@ -18,8 +28,14 @@ const Message = ({ state }: MessageProps): JSX.Element => {
 
   const safeAtobAndSanitize = (input: string): string => {
     try {
-      const decoded = atob(input);
-      return DOMPurify.sanitize(decoded);
+      const decoded = fromBase64(input);
+
+      return DOMPurify.sanitize(decoded, {
+        ALLOWED_TAGS: [],
+        ALLOWED_ATTR: [],
+        FORBID_TAGS: ["style", "script"],
+        ALLOWED_URI_REGEXP: /^(https?|ftp):\/\//,
+      });
     } catch {
       return "";
     }

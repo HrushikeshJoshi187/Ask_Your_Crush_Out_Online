@@ -119,10 +119,4 @@ If you found this project fun or helpful, feel free to ⭐️ the repository or 
 Built with ❤️ by Hrushi Joshi
 
 implemented pooling nodemailer, rate limiting, queueing, throttling.
-
-// 4 lines of message
-// button looks text
-// placeholder is misunderstood as message
-// Emoji and unicode passing in message and also in URL (check dom-purify)
-
-// linkedin Post, video, github post, X post
+can write messages in English, basic latin and emojies

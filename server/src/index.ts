@@ -35,8 +35,8 @@ app.use(bodyParser.json());
 app.use(helmet());
 
 const corsOptions = {
-  origin: "https://iwaswondering.netlify.app",
-  //origin: "http://localhost:5173",
+  // origin: "https://iwaswondering.netlify.app",
+  origin: "http://localhost:5173",
   optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
