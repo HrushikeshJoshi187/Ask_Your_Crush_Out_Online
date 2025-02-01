@@ -6,12 +6,18 @@ ffmpeg -i still_want_to_go_out.mkv -vf "fps=10,scale=iw:ih:flags=lanczos" -q:v 1
 
 
 
-ffmpeg -i website.mkv -vf "fps=10,scale=-1:720:flags=lanczos,palettegen" palette.png
+ffmpeg -i website.mkv -vf "fps=5,scale=-1:720:flags=lanczos,palettegen" palette.png
 
-ffmpeg -i website.mkv -i palette.png -filter_complex "fps=10,scale=-1:720:flags=lanczos[x];[x][1:v]paletteuse" -loop 0 website.gif
+ffmpeg -i website.mkv -i palette.png -filter_complex "fps=5,scale=-1:720:flags=lanczos[x];[x][1:v]paletteuse" -loop 0 website.gif
 
 
 
-ffmpeg -i still_want_to_go_out.mkv -vf "fps=10,scale=-1:720:flags=lanczos,palettegen" palette.png
+ffmpeg -i still_want_to_go_out.mkv -vf "fps=4,scale=-1:720:flags=lanczos,palettegen" palette.png
 
-ffmpeg -i still_want_to_go_out.mkv -i palette.png -filter_complex "fps=10,scale=-1:720:flags=lanczos[x];[x][1:v]paletteuse" -loop 0 still_want_to_go_out.gif
+ffmpeg -i still_want_to_go_out.mkv -i palette.png -filter_complex "fps=4,scale=-1:720:flags=lanczos[x];[x][1:v]paletteuse" -loop 0 still_want_to_go_out.gif
+
+
+
+ffmpeg -i website.mkv -c:v copy -c:a copy website.mp4
+
+ffmpeg -i still_want_to_go_out.mkv -c:v copy -c:a copy still_want_to_go_out.mp4

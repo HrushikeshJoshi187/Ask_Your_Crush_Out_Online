@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import Message from "./components/Message.tsx";
 import Circles from "./components/Circles.tsx";
@@ -56,6 +56,7 @@ const App = (): JSX.Element => {
             }
           />
           <Route path="/customize" element={<Customize />} />
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>
     </BrowserRouter>
