@@ -154,6 +154,8 @@ setInterval(() => {
 app.post("/api/yes", async (req: Request, res: Response): Promise<void> => {
   const { email } = req.body;
 
+  console.log("sending email to ", email);
+
   if (!isValidEmail(email)) {
     res.status(400).send("Invalid email address.");
     return;
@@ -170,6 +172,8 @@ app.post("/api/yes", async (req: Request, res: Response): Promise<void> => {
 
 app.post("/api/no", async (req: Request, res: Response): Promise<void> => {
   const { email } = req.body;
+
+  console.log("sending email to ", email);
 
   if (!isValidEmail(email)) {
     res.status(400).send("Invalid email address.");
