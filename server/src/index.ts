@@ -60,6 +60,8 @@ const transporterPool = GMAIL_ACCOUNTS.map((account) =>
       user: account.user,
       pass: account.pass,
     },
+    logger: true,
+    debug: true,
   })
 );
 
